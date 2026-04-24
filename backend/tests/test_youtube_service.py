@@ -129,10 +129,12 @@ class TestFetchTranscript:
 
     @patch("app.services.youtube.YouTubeTranscriptApi.fetch")
     def test_successful_fetch(self, mock_fetch):
-        mock_fetch.return_value = _make_fetched([
-            _make_snippet("Hello world", 0.0, 1.5),
-            _make_snippet("this is a test", 1.5, 2.0),
-        ])
+        mock_fetch.return_value = _make_fetched(
+            [
+                _make_snippet("Hello world", 0.0, 1.5),
+                _make_snippet("this is a test", 1.5, 2.0),
+            ]
+        )
 
         result = fetch_transcript("dQw4w9WgXcQ")
 
@@ -141,9 +143,11 @@ class TestFetchTranscript:
 
     @patch("app.services.youtube.YouTubeTranscriptApi.fetch")
     def test_transcript_truncation(self, mock_fetch):
-        mock_fetch.return_value = _make_fetched([
-            _make_snippet("a" * 100, 0.0, 5.0),
-        ])
+        mock_fetch.return_value = _make_fetched(
+            [
+                _make_snippet("a" * 100, 0.0, 5.0),
+            ]
+        )
 
         result = fetch_transcript("dQw4w9WgXcQ", max_length=50)
 
